@@ -643,45 +643,74 @@ Checkout via WhatsApp 📲
 
 /* PRODUCTS */
 
-const products=[
+  const products = [
 
-{
-name:"Fresh Apples",
-price:2,
-type:"fruit",
-image:"https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=500"
-},
+  {
+    name:"Fresh Apples",
+    price:2,
+    type:"fruit",
+    image:"https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=500"
+  },
 
-{
-name:"Bananas",
-price:1,
-type:"fruit",
-image:"https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=500"
-},
+  {
+    name:"Bananas",
+    price:1,
+    type:"fruit",
+    image:"https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=500"
+  },
 
-{
-name:"Orange Juice",
-price:3,
-type:"drink",
-image:"https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=500"
-},
+  {
+    name:"Orange Juice",
+    price:3,
+    type:"drink",
+    image:"https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=500"
+  },
 
-{
-name:"Bread",
-price:2,
-type:"bakery",
-image:"https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=500"
-},
+  {
+    name:"Bread",
+    price:2,
+    type:"bakery",
+    image:"https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=500"
+  },
 
-{
-name:"Cookies",
-price:4,
-type:"snack",
-image:"https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500"
-}
+  {
+    name:"Cookies",
+    price:4,
+    type:"snack",
+    image:"https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500"
+  },
+
+  // 🆕 SNACK EXPANSION
+  {
+    name:"Potato Chips",
+    price:2,
+    type:"snack",
+    image:"https://images.unsplash.com/photo-1604908176997-125f25cc500f?w=500"
+  },
+
+  {
+    name:"Chocolate Bar",
+    price:3,
+    type:"snack",
+    image:"https://images.unsplash.com/photo-1580915411954-282cb1b0d780?w=500"
+  },
+
+  {
+    name:"Popcorn",
+    price:2,
+    type:"snack",
+    image:"https://images.unsplash.com/photo-1599490659213-e2b9533c4f8a?w=500"
+  },
+
+  {
+    name:"Biscuits Pack",
+    price:3,
+    type:"snack",
+    image:"https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500"
+  }
 
 ];
-
+  
 /* STORAGE */
 
 let cart=JSON.parse(localStorage.getItem("cart"))||[];
