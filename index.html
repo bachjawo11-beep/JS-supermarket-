@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JS Supermarket Ultimate</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f5f7ff;
+  color:#222;
+  transition:0.3s;
+}
+
+body.dark{
+  background:#121212;
+  color:white;
+}
+
+/* HEADER */
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 20px;
+  background:linear-gradient(90deg,#ff6a00,#ffcc00);
+  color:white;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:bold;
+}
+
+nav{
+  display:flex;
+  gap:20px;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.menu-btn{
+  display:none;
+  font-size:28px;
+  cursor:pointer;
+}
+
+.header-actions{
+  display:flex;
+  gap:10px;
+}
+
+.header-actions button{
+  background:white;
+  color:#ff6a00;
+  border:none;
+  padding:10px 15px;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* HERO */
+
+.hero{
+  background:linear-gradient(120deg,#00c6ff,#0072ff);
+  color:white;
+  text-align:center;
+  padding:80px 20px;
+}
+
+.hero h1{
+  font-size:50px;
+  margin-bottom:20px;
+}
+
+.hero p{
+  font-size:20px;
+  margin-bottom:25px;
+}
+
+.btn{
+  display:inline-block;
+  background:white;
+  color:#0072ff;
+  padding:14px 25px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+/* SEARCH */
+
+.search-bar{
+  padding:20px;
+  text-align:center;
+}
+
+.search-bar input{
+  width:90%;
+  max-width:500px;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+}
+
+/* FILTERS */
+
+.filters{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.filters select{
+  padding:12px;
+  border:none;
+  border-radius:10px;
+}
+
+/* PRODUCTS */
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  padding:20px;
+}
+
+.product{
+  background:white;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+.product:hover{
+  transform:translateY(-5px);
+}
+
+.product img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+
+.product-content{
+  padding:15px;
+  text-align:center;
+}
+
+.product-buttons{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-top:10px;
+}
+
+button{
+  border:none;
+  padding:12px;
+  border-radius:10px;
+  cursor:pointer;
+  background:#ff6a00;
+  color:white;
+  font-weight:bold;
+}
+
+/* CART */
+
+.cart-drawer{
+  position:fixed;
+  top:0;
+  right:-400px;
+  width:350px;
+  height:100%;
+  background:white;
+  padding:20px;
+  overflow-y:auto;
+  transition:0.4s;
+  z-index:2000;
+  box-shadow:-5px 0 20px rgba(0,0,0,0.2);
+}
+
+.cart-drawer.active{
+  right:0;
+}
+
+.cart-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.cart-item{
+  display:flex;
+  gap:10px;
+  background:#f5f5f5;
+  padding:10px;
+  border-radius:10px;
+  margin-bottom:15px;
+}
+
+.cart-item img{
+  width:80px;
+  height:80px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.qty-controls{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:10px;
+}
+
+/* AUTH */
+
+.auth-box{
+  max-width:400px;
+  margin:40px auto;
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.auth-box input{
+  width:100%;
+  padding:14px;
+  margin-bottom:15px;
+  border:none;
+  border-radius:10px;
+  background:#f2f2f2;
+}
+
+/* PROFILE */
+
+.profile-card{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  margin:20px;
+  text-align:center;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.profile-avatar{
+  width:100px;
+  height:100px;
+  margin:auto;
+  border-radius:50%;
+  background:linear-gradient(120deg,#ff6a00,#ffcc00);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:50px;
+  color:white;
+  margin-bottom:20px;
+}
+
+/* DASHBOARD */
+
+.dashboard{
+  padding:20px;
+}
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px;
+}
+
+.stat-card{
+  background:white;
+  padding:25px;
+  border-radius:15px;
+  text-align:center;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* ORDER HISTORY */
+
+.order-card{
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  margin:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* DELIVERY TRACKING */
+
+.tracking-box{
+  background:white;
+  padding:30px;
+  margin:20px;
+  border-radius:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.tracking-steps{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.step{
+  text-align:center;
+  font-size:30px;
+  opacity:0.5;
+}
+
+.step.active{
+  opacity:1;
+}
+
+.step p{
+  font-size:14px;
+  margin-top:10px;
+}
+
+.line{
+  flex:1;
+  height:5px;
+  background:#ccc;
+  border-radius:10px;
+}
+
+.line.active{
+  background:#00c853;
+}
+
+/* TOAST */
+
+#toast{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#111;
+  color:white;
+  padding:15px 22px;
+  border-radius:12px;
+  font-weight:bold;
+  opacity:0;
+  transform:translateY(-20px);
+  transition:0.4s;
+  z-index:99999;
+  pointer-events:none;
+}
+
+#toast.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* DARK MODE */
+
+body.dark .product,
+body.dark .cart-drawer,
+body.dark .auth-box,
+body.dark .profile-card,
+body.dark .stat-card,
+body.dark .tracking-box,
+body.dark .order-card{
+  background:#1e1e1e;
+  color:white;
+}
+
+body.dark .cart-item{
+  background:#2a2a2a;
+}
+
+body.dark input{
+  background:#2a2a2a;
+  color:white;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  nav{
+    display:none;
+    flex-direction:column;
+    position:absolute;
+    top:70px;
+    right:10px;
+    background:#ff6a00;
+    padding:20px;
+    border-radius:10px;
+  }
+
+  nav.show{
+    display:flex;
+  }
+
+  .menu-btn{
+    display:block;
+  }
+
+  .hero h1{
+    font-size:34px;
+  }
+
+  .cart-drawer{
+    width:100%;
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+<header class="header">
+
+<div class="logo">🛒 JS Supermarket</div>
+
+<nav id="nav">
+<a href="#home">Home</a>
+<a href="#shop">Shop</a>
+<a href="#account">Account</a>
+<a href="#dashboard">Dashboard</a>
+</nav>
+
+<div class="header-actions">
+<button onclick="toggleMode()">🌙</button>
+<button onclick="toggleCart()">🛍 Cart</button>
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+</div>
+
+</header>
+
+<section class="hero" id="home">
+<h1>Fresh Groceries Delivered Fast 🚚</h1>
+<p>Modern colorful supermarket experience</p>
+<a href="#shop" class="btn">Start Shopping</a>
+</section>
+
+<section class="search-bar">
+<input type="text" id="searchInput" placeholder="Search products..." onkeyup="searchProducts()">
+</section>
+
+<section class="filters">
+<select onchange="filterProducts(this.value)">
+<option value="all">All</option>
+<option value="fruit">Fruits</option>
+<option value="drink">Drinks</option>
+<option value="bakery">Bakery</option>
+<option value="snack">Snacks</option>
+</select>
+</section>
+
+<div class="products" id="products"></div>
+
+<!-- ACCOUNT -->
+
+<section id="account">
+
+<div class="auth-box">
+
+<h2>🔐 Login / Create Account</h2>
+
+<input type="text" id="authName" placeholder="Full Name">
+
+<input type="email" id="authEmail" placeholder="Email">
+
+<input type="password" id="authPassword" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+<button onclick="createAccount()">
+Create Account
+</button>
+
+<p id="welcomeUser" style="margin-top:15px;font-weight:bold;"></p>
+
+</div>
+
+</section>
+
+<!-- PROFILE -->
+
+<section class="dashboard">
+
+<h2>👤 User Profile</h2>
+
+<div class="profile-card">
+
+<div class="profile-avatar">
+👤
+</div>
+
+<h2 id="profileName">
+Guest User
+</h2>
+
+<p id="profileEmail">
+No email
+</p>
+
+<button onclick="logoutUser()">
+Logout
+</button>
+
+</div>
+
+</section>
+
+<!-- DASHBOARD -->
+
+<section class="dashboard" id="dashboard">
+
+<h2>📊 Dashboard</h2>
+
+<div class="dashboard-grid">
+
+<div class="stat-card">
+<h2 id="ordersCount">0</h2>
+<p>Total Orders</p>
+</div>
+
+<div class="stat-card">
+<h2 id="revenueCount">$0</h2>
+<p>Revenue</p>
+</div>
+
+<div class="stat-card">
+<h2 id="productsCount">0</h2>
+<p>Products</p>
+</div>
+
+<div class="stat-card">
+<h2 id="wishlistCount">0</h2>
+<p>Wishlist</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- DELIVERY TRACKING -->
+
+<section class="dashboard">
+
+<h2>🚚 Delivery Tracking</h2>
+
+<div class="tracking-box">
+
+<div class="tracking-steps">
+
+<div class="step active">
+📦
+<p>Order Placed</p>
+</div>
+
+<div class="line active"></div>
+
+<div class="step active">
+🚚
+<p>On The Way</p>
+</div>
+
+<div class="line"></div>
+
+<div class="step">
+🏠
+<p>Delivered</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ORDER HISTORY -->
+
+<section>
+
+<h2 style="padding:20px;">
+📜 Order History
+</h2>
+
+<div id="orderHistory"></div>
+
+</section>
+
+<!-- CART -->
+
+<div class="cart-drawer" id="cartDrawer">
+
+<div class="cart-header">
+<h2>🛒 Cart</h2>
+<button onclick="toggleCart()">✖</button>
+</div>
+
+<div id="cartItems"></div>
+
+<h3 id="total">Total: $0</h3>
+
+<button onclick="checkoutWhatsApp()">
+Checkout via WhatsApp 📲
+</button>
+
+</div>
+
+<!-- TOAST -->
+
+<div id="toast"></div>
+
+<footer style="background:#222;color:white;text-align:center;padding:30px;margin-top:40px;">
+
+<p>📞 WhatsApp: 7597080</p>
+
+<p>📧 Email: bachjawo11@gmail.com</p>
+
+<p>© JS Supermarket</p>
+
+</footer>
+
+<script>
+
+/* PRODUCTS */
+
+const products=[
+
+{
+name:"Fresh Apples",
+price:2,
+type:"fruit",
+image:"https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=500"
+},
+
+{
+name:"Bananas",
+price:1,
+type:"fruit",
+image:"https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=500"
+},
+
+{
+name:"Orange Juice",
+price:3,
+type:"drink",
+image:"https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=500"
+},
+
+{
+name:"Bread",
+price:2,
+type:"bakery",
+image:"https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=500"
+},
+
+{
+name:"Cookies",
+price:4,
+type:"snack",
+image:"https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=500"
+}
+
+];
+
+/* STORAGE */
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+let wishlist=JSON.parse(localStorage.getItem("wishlist"))||[];
+
+let orderHistory=
+JSON.parse(localStorage.getItem("orderHistory"))||[];
+
+let totalOrders=
+JSON.parse(localStorage.getItem("totalOrders"))||0;
+
+let totalRevenue=
+JSON.parse(localStorage.getItem("totalRevenue"))||0;
+
+/* TOAST */
+
+function showToast(message){
+
+const toast=document.getElementById("toast");
+
+toast.innerText=message;
+
+toast.classList.add("show");
+
+setTimeout(()=>{
+toast.classList.remove("show");
+},2500);
+
+}
+
+/* STARTUP */
+
+window.addEventListener("load",()=>{
+
+showToast("🛒 JS Supermarket Ready 🚀");
+
+});
+
+/* DARK MODE */
+
+function toggleMode(){
+document.body.classList.toggle("dark");
+}
+
+/* MENU */
+
+function toggleMenu(){
+document.getElementById("nav").classList.toggle("show");
+}
+
+/* PRODUCTS */
+
+function renderProducts(list){
+
+const box=document.getElementById("products");
+
+box.innerHTML="";
+
+list.forEach(p=>{
+
+box.innerHTML+=`
+
+<div class="product">
+
+<img src="${p.image}">
+
+<div class="product-content">
+
+<h3>${p.name}</h3>
+
+<p>$${p.price}</p>
+
+<div class="product-buttons">
+
+<button onclick="addToCart('${p.name}',${p.price},'${p.image}')">
+🛒 Add To Cart
+</button>
+
+<button onclick="addToWishlist('${p.name}',${p.price},'${p.image}')">
+❤️ Wishlist
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* CART */
+
+function saveCart(){
+localStorage.setItem("cart",JSON.stringify(cart));
+}
+
+function addToCart(name,price,image){
+
+const existing=cart.find(item=>item.name===name);
+
+if(existing){
+existing.quantity++;
+}else{
+cart.push({name,price,image,quantity:1});
+}
+
+saveCart();
+
+loadCart();
+
+showToast(name+" added to cart 🛒");
+
+}
+
+function increaseQty(index){
+
+cart[index].quantity++;
+
+saveCart();
+
+loadCart();
+
+}
+
+function decreaseQty(index){
+
+if(cart[index].quantity>1){
+cart[index].quantity--;
+}else{
+cart.splice(index,1);
+}
+
+saveCart();
+
+loadCart();
+
+}
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+saveCart();
+
+loadCart();
+
+showToast("Item removed ❌");
+
+}
+
+function loadCart(){
+
+const box=document.getElementById("cartItems");
+
+box.innerHTML="";
+
+let total=0;
+
+cart.forEach((item,index)=>{
+
+total+=item.price*item.quantity;
+
+box.innerHTML+=`
+
+<div class="cart-item">
+
+<img src="${item.image}">
+
+<div>
+
+<h4>${item.name}</h4>
+
+<p>$${item.price}</p>
+
+<div class="qty-controls">
+
+<button onclick="decreaseQty(${index})">➖</button>
+
+<span>${item.quantity}</span>
+
+<button onclick="increaseQty(${index})">➕</button>
+
+</div>
+
+<button onclick="removeItem(${index})">
+❌ Remove
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("total")
+.innerText="Total: $"+total;
+
+}
+
+/* WISHLIST */
+
+function addToWishlist(name,price,image){
+
+wishlist.push({name,price,image});
+
+localStorage.setItem(
+"wishlist",
+JSON.stringify(wishlist)
+);
+
+updateDashboard();
+
+showToast(name+" added to wishlist ❤️");
+
+}
+
+/* SEARCH */
+
+function searchProducts(){
+
+const value=document
+.getElementById("searchInput")
+.value
+.toLowerCase();
+
+const filtered=products.filter(p=>
+p.name.toLowerCase().includes(value)
+);
+
+renderProducts(filtered);
+
+}
+
+/* FILTER */
+
+function filterProducts(type){
+
+if(type==="all"){
+renderProducts(products);
+return;
+}
+
+const filtered=
+products.filter(p=>p.type===type);
+
+renderProducts(filtered);
+
+}
+
+/* CART DRAWER */
+
+function toggleCart(){
+document.getElementById("cartDrawer")
+.classList.toggle("active");
+}
+
+/* ACCOUNT */
+
+let currentUser=
+JSON.parse(localStorage.getItem("currentUser"))||null;
+
+function createAccount(){
+
+const name=
+document.getElementById("authName").value;
+
+const email=
+document.getElementById("authEmail").value;
+
+const password=
+document.getElementById("authPassword").value;
+
+if(!name || !email || !password){
+
+showToast("Fill all fields");
+
+return;
+
+}
+
+const user={
+name,
+email,
+password
+};
+
+localStorage.setItem(
+"user",
+JSON.stringify(user)
+);
+
+showToast("Account created 🎉");
+
+}
+
+function login(){
+
+const email=
+document.getElementById("authEmail").value;
+
+const password=
+document.getElementById("authPassword").value;
+
+const savedUser=
+JSON.parse(localStorage.getItem("user"));
+
+if(
+savedUser &&
+savedUser.email===email &&
+savedUser.password===password
+){
+
+currentUser=savedUser;
+
+localStorage.setItem(
+"currentUser",
+JSON.stringify(currentUser)
+);
+
+document.getElementById(
+"welcomeUser"
+).innerText=
+"Welcome "+currentUser.name+" 🥰";
+
+loadProfile();
+
+showToast("Login successful ✅");
+
+}else{
+
+showToast("Wrong email or password");
+
+}
+
+}
+
+/* PROFILE */
+
+function loadProfile(){
+
+if(currentUser){
+
+document.getElementById(
+"profileName"
+).innerText=
+currentUser.name;
+
+document.getElementById(
+"profileEmail"
+).innerText=
+currentUser.email;
+
+}
+
+}
+
+function logoutUser(){
+
+localStorage.removeItem(
+"currentUser"
+);
+
+location.reload();
+
+}
+
+/* AUTO LOGIN */
+
+if(currentUser){
+
+document.getElementById(
+"welcomeUser"
+).innerText=
+"Welcome "+currentUser.name+" 🥰";
+
+}
+
+/* DASHBOARD */
+
+function updateDashboard(){
+
+document.getElementById(
+"ordersCount"
+).innerText=totalOrders;
+
+document.getElementById(
+"revenueCount"
+).innerText="$"+totalRevenue;
+
+document.getElementById(
+"productsCount"
+).innerText=products.length;
+
+document.getElementById(
+"wishlistCount"
+).innerText=wishlist.length;
+
+}
+
+/* ORDER HISTORY */
+
+function saveOrderHistory(){
+
+localStorage.setItem(
+"orderHistory",
+JSON.stringify(orderHistory)
+);
+
+}
+
+function loadOrderHistory(){
+
+const box=
+document.getElementById("orderHistory");
+
+box.innerHTML="";
+
+orderHistory.forEach(order=>{
+
+box.innerHTML+=`
+
+<div class="order-card">
+
+<h3>Order #${order.id}</h3>
+
+<p>👤 ${order.customer}</p>
+
+<p>📞 ${order.phone}</p>
+
+<p>📍 ${order.address}</p>
+
+<p>💰 Total: $${order.total}</p>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* CHECKOUT */
+
+function checkoutWhatsApp(){
+
+if(cart.length===0){
+
+showToast("Cart is empty");
+
+return;
+
+}
+
+let customerName=
+prompt("Enter your name");
+
+if(!customerName) return;
+
+let customerPhone=
+prompt("Enter phone number");
+
+if(!customerPhone) return;
+
+let customerAddress=
+prompt("Enter address");
+
+if(!customerAddress) return;
+
+let message=
+`🛒 JS SUPERMARKET ORDER
+
+👤 Customer: ${customerName}
+📞 Phone: ${customerPhone}
+📍 Address: ${customerAddress}
+
+----------------------------
+
+`;
+
+let total=0;
+
+cart.forEach(item=>{
+
+let subtotal=
+item.price*item.quantity;
+
+message+=
+`${item.name} x${item.quantity} = $${subtotal}
+`;
+
+total+=subtotal;
+
+});
+
+message+=`
+----------------------------
+
+TOTAL: $${total}
+`;
+
+orderHistory.push({
+
+id:orderHistory.length+1,
+
+customer:customerName,
+
+phone:customerPhone,
+
+address:customerAddress,
+
+total:total
+
+});
+
+saveOrderHistory();
+
+loadOrderHistory();
+
+totalOrders++;
+
+totalRevenue+=total;
+
+localStorage.setItem(
+"totalOrders",
+JSON.stringify(totalOrders)
+);
+
+localStorage.setItem(
+"totalRevenue",
+JSON.stringify(totalRevenue)
+);
+
+updateDashboard();
+
+const phone="2207597080";
+
+const url=
+`https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+window.location.href=url;
+
+cart=[];
+
+saveCart();
+
+loadCart();
+
+}
+
+/* INITIAL LOAD */
+
+renderProducts(products);
+
+loadCart();
+
+loadProfile();
+
+loadOrderHistory();
+
+updateDashboard();
+
+</script>
+
+</body>
+  </html>
