@@ -1163,101 +1163,101 @@ box.innerHTML+=`
 
 function checkoutWhatsApp(){
 
-if(cart.length===0){
+  if(cart.length === 0){
 
-showToast("Cart is empty");
+    showToast("Cart is empty");
 
-return;
+    return;
+  }
 
-}
+  let customer =
+    prompt("Enter your name");
 
-let customerName=
-prompt("Enter your name");
+  if(!customer) return;
 
-if(!customerName) return;
+  let address =
+    prompt("Enter delivery address");
 
-let customerPhone=
-prompt("Enter phone number");
+  if(!address) return;
 
-if(!customerPhone) return;
-
-let customerAddress=
-prompt("Enter address");
-
-if(!customerAddress) return;
-
-let message=
+  let message =
 `🛒 JS SUPERMARKET ORDER
 
-👤 Customer: ${customerName}
-📞 Phone: ${customerPhone}
-📍 Address: ${customerAddress}
+👤 Customer: ${customer}
+📍 Address: ${address}
 
-----------------------------
+------------------
 
 `;
 
-let total=0;
+  let total = 0;
 
-cart.forEach(item=>{
+  cart.forEach(item => {
 
-let subtotal=
-item.price*item.quantity;
+    let subtotal =
+      item.price * item.quantity;
 
-message+=
+    message +=
 `${item.name} x${item.quantity} = $${subtotal}
 `;
 
-total+=subtotal;
+    total += subtotal;
 
-});
+  });
 
-message+=`
-----------------------------
+  message += `
+------------------
 
 TOTAL: $${total}
 `;
 
-orderHistory.push({
+  // Dashboard
+  totalOrders++;
 
-id:orderHistory.length+1,
+  totalRevenue += total;
 
-customer:customerName,
+  localStorage.setItem(
+    "totalOrders",
+    JSON.stringify(totalOrders)
+  );
 
-phone:customerPhone,
+  localStorage.setItem(
+    "totalRevenue",
+    JSON.stringify(totalRevenue)
+  );
 
-address:customerAddress,
+  // Order history
+  orderHistory.push({
 
-total:total
+    id: orderHistory.length + 1,
 
-});
+    customer,
 
-saveOrderHistory();
+    address,
 
-loadOrderHistory();
+    total
 
-totalOrders++;
+  });
 
-totalRevenue+=total;
+  saveOrderHistory();
 
-localStorage.setItem(
-"totalOrders",
-JSON.stringify(totalOrders)
-);
+  loadOrderHistory();
 
-localStorage.setItem(
-"totalRevenue",
-JSON.stringify(totalRevenue)
-);
+  updateDashboard();
 
-updateDashboard();
+  // WhatsApp
+  const phone = "2207597080";
 
-const phone="2207597080";
+  const encodedMessage =
+    encodeURIComponent(message);
 
-const url=
-`https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  const whatsappURL =
+`https://api.whatsapp.com/send?phone=${phone}&text=${encodedMessage}`;
 
-window.location.href=url;
+  // THIS OPENS IT
+  window.open(whatsappURL, "_self");
+
+  }
 
 cart=[];
 
