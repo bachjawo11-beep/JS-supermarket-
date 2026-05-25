@@ -1516,23 +1516,22 @@ loadOrderHistory();
 
 updateDashboard();
 
-  const phone = "2207597080";
+const phone="2207597080";
 
-const encodedMessage = encodeURIComponent(message);
+const url=
+`https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
-// 🔥 TRY DIRECT APP OPEN FIRST (ANDROID)
-const appLink = `intent://send?phone=${phone}&text=${encodedMessage}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
+window.open(url,"_blank");
 
-// 🔥 FALLBACK WEB LINK
-const webLink = `https://wa.me/${phone}?text=${encodedMessage}`;
+showToast("Opening WhatsApp 📲");
 
-// Try opening app
-window.location.href = appLink;
+cart=[];
 
-// fallback if blocked
-setTimeout(() => {
-  window.location.href = webLink;
-}, 1200);
+saveCart();
+
+loadCart();
+
+}
 
 /* INIT */
 
